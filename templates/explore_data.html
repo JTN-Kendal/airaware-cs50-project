@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Explore Data
+{% endblock %}
+
+{% block main %}
+    <h1>Welcome to AiRAware the air pollution data website</h1>
+
+    <!--  Data selection buttons  -->
+        <div class="mb-4">
+            <!--    Main locations dropdown menu    -->
+            <form action="/" method="get" style="margin-top: 30px; margin-bottom: 30px">
+                <button class="btn btn-primary me-2" name="location-data-selection" value="oxford"
+                       aria-label="Select location"
+                       type="submit"
+                       style="width: auto; min-width: 200px">
+                    Oxford Data</button>
+                <button class="btn btn-primary" name="location-data-selection" value="london"
+                       aria-label="Select location"
+                       type="submit"
+                       style="width: auto; min-width: 200px">
+                    London Data</button>
+            </form>
+        </div>
+
+    <!--  Main location drop-down menu  -->
+    <div class="d-flex gap-4">
+        <!-- Left sidebar with dropdowns -->
+        <div class="flex-shrink-0" style="width: 220px">
+            <!--    Main locations dropdown menu    -->
+            <form action="/filter" method="get" class="mb-3">
+                <select class="form-select dropdown-menu-style" name="main_location" aria-label="Select location"
+                        style="width: auto; min-width: 200px">
+                    <option selected disabled>Main Location</option>
+                    {% for location in locations %}
+                    <option value="{{ location.name }}">{{ location.name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+
+            <!--    Sub-locations dropdown menu    -->
+            <form action="/filter" method="get" class="mb-3">
+                <select class="form-select dropdown-menu-style" name="sub_location" aria-label="Select location"
+                        style="width: auto; min-width: 200px">
+                    <option selected disabled>Sub Location</option>
+                    {% for sub_location in sub_locations %}
+                    <option value="{{ sub_location.name }}">{{ sub_location.name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+
+            <!--    Pollutants dropdown menu    -->
+            <form action="/filter" method="get" class="mb-3">
+                <select class="form-select dropdown-menu-style" name="pollutants" aria-label="Select location"
+                        style="width: auto; min-width: 200px">
+                    <option selected disabled>Pollutant</option>
+                    {% for pollutant in pollutants %}
+                    <option value="{{ pollutant.name }}">{{ pollutant.name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+
+        <!--            Data table content-->
+        <div class="flex-grow-1">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" style="caption-side: top;">
+                    <caption>{{ location }} Dataset</caption>
+                    <thead class="table-secondary">
+                        <tr>
+                            <th scope="col">Main Location</th>
+                            <th scope="col">Sub Location</th>
+                            <th scope="col">Pollutant</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                            <tr>
+                                <td>{{ row.loc_name }}</td>
+                                <td>{{ row.sub_name }}</td>
+                                <td>{{ row.pollutant_name }}</td>
+                                <td>{{ row.value }}</td>
+                                <td>{{ row.status }}</td>
+                                <td>{{ row.measured_at }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
