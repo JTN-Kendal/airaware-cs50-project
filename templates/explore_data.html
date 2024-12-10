@@ -34,7 +34,7 @@
                         style="width: auto; min-width: 200px">
                     <option selected disabled>Main Location</option>
                     {% for location in locations %}
-                    <option value="{{ location.name }}">{{ location.name }}</option>
+                    <option name="main-location-selector" value="{{ location.name }}">{{ location.name }}</option>
                     {% endfor %}
                 </select>
             </form>
