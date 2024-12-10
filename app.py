@@ -43,12 +43,19 @@ def explore():
         print(e)
 
     # TODO: Add the drop-down selection options
-    main_location = request.args.get("main_location")
-    sub_location = request.args.get("sub_location")
-    pollutant = request.args.get("pollutant")
-    # measure_date = request.args.get("date")
+    selected_main_location = request.args.get("main_location")
+    selected_sub_location = request.args.get("sub_location")
+    selected_pollutant = request.args.get("pollutant")
+    # selected_measure_date = request.args.getlist("date")
 
-    # filters = get_filtered_results(main_location, sub_location, pollutant)
+    # Add debug print
+    print(f"Route selections: main={selected_main_location}, sub={selected_sub_location}, poll={selected_pollutant}")
+
+    filtered_results = get_filtered_results(db,
+                                            main_location=selected_main_location,
+                                            sub_location=selected_sub_location,
+                                            pollutant=selected_pollutant
+                                            )
 
     # Set a variable to contain the location that is selected - Oxford or London
     location_data = ""
@@ -81,12 +88,24 @@ def explore():
         except Exception as e:
             print(f"Exception {e}")  # Set empty list in the except block when there's an error
 
+    # return render_template("explore_data.html",
+    #                        location=location_data,
+    #                        # location=drop_down_filters,
+    #                        locations=main_locations,
+    #                        sub_locations=sub_locations,
+    #                        pollutants=pollutants,
+    #                        data=data_table,
+    #                        selected_locations=["Oxford", "SODC"]
+    #                        )
     return render_template("explore_data.html",
+                           data=filtered_results,
                            location=location_data,
                            locations=main_locations,
                            sub_locations=sub_locations,
                            pollutants=pollutants,
-                           data=data_table,
+                           selected_main_location=selected_main_location,
+                           selected_sub_location=selected_sub_location,
+                           selected_pollutant=selected_pollutant,
                            )
 
 

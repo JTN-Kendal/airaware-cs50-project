@@ -9,7 +9,7 @@
 
     <!--  Data selection buttons  -->
         <div class="mb-4">
-            <!--    Main locations dropdown menu    -->
+            <!--    Ocford vs London dropdown Buttons    -->
             <form action="/" method="get" style="margin-top: 30px; margin-bottom: 30px">
                 <button class="btn btn-primary me-2" name="location-data-selection" value="oxford"
                        aria-label="Select location"
@@ -29,34 +29,46 @@
         <!-- Left sidebar with dropdowns -->
         <div class="flex-shrink-0" style="width: 220px">
             <!--    Main locations dropdown menu    -->
-            <form action="/filter" method="get" class="mb-3">
-                <select class="form-select dropdown-menu-style" name="main_location" aria-label="Select location"
+            <form action="{{ url_for('explore') }}" method="get" class="mb-3">
+                <!-- Main locations dropdown -->
+                <select class="form-select dropdown-menu-style"
+                        name="main_location"
+                        onchange="this.form.submit()"
+                        aria-label="Select main location"
                         style="width: auto; min-width: 200px">
-                    <option selected disabled>Main Location</option>
+                    <option value="" disabled selected>Main Location</option>
                     {% for location in locations %}
-                    <option name="main-location-selector" value="{{ location.name }}">{{ location.name }}</option>
+                    <option value="{{ location.name }}"
+                            {% if selected_main_location and location.name == selected_main_location %}selected{% endif %}>
+                        {{ location.name }}</option>
                     {% endfor %}
                 </select>
-            </form>
 
-            <!--    Sub-locations dropdown menu    -->
-            <form action="/filter" method="get" class="mb-3">
-                <select class="form-select dropdown-menu-style" name="sub_location" aria-label="Select location"
+                <!-- Sub-locations dropdown -->
+                <select class="form-select dropdown-menu-style"
+                        name="sub_location"
+                        onchange="this.form.submit()"
+                        aria-label="Select sub location"
                         style="width: auto; min-width: 200px">
-                    <option selected disabled>Sub Location</option>
+                    <option value="" disabled selected>Sub Location</option>
                     {% for sub_location in sub_locations %}
-                    <option value="{{ sub_location.name }}">{{ sub_location.name }}</option>
+                    <option value="{{ sub_location.name }}"
+                            {% if selected_sub_location and sub_location.name == selected_sub_location %}selected{% endif %}>
+                        {{ sub_location.name }}</option>
                     {% endfor %}
                 </select>
-            </form>
 
-            <!--    Pollutants dropdown menu    -->
-            <form action="/filter" method="get" class="mb-3">
-                <select class="form-select dropdown-menu-style" name="pollutants" aria-label="Select location"
+                <!-- Pollutants dropdown -->
+                <select class="form-select dropdown-menu-style"
+                        name="pollutant"
+                        onchange="this.form.submit()"
+                        aria-label="Select pollutant"
                         style="width: auto; min-width: 200px">
-                    <option selected disabled>Pollutant</option>
+                    <option value="" disabled selected>Pollutant</option>
                     {% for pollutant in pollutants %}
-                    <option value="{{ pollutant.name }}">{{ pollutant.name }}</option>
+                    <option value="{{ pollutant.name }}"
+                            {% if selected_pollutant and pollutant.name == selected_pollutant %}selected{% endif %}>
+                        {{ pollutant.name }}</option>
                     {% endfor %}
                 </select>
             </form>
