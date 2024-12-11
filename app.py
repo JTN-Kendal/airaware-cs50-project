@@ -19,7 +19,12 @@ Session(app)
 # db = SQL("sqlite:///data/air.db")
 
 
-@app.route("/", methods=["GET"])
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+@app.route("/explore", methods=["GET"])
 def explore():
     # Establish database connection
     db = get_db()
@@ -47,9 +52,6 @@ def explore():
     selected_sub_location = request.args.get("sub_location")
     selected_pollutant = request.args.get("pollutant")
     # selected_measure_date = request.args.getlist("date")
-
-    # Add debug print
-    print(f"Route selections: main={selected_main_location}, sub={selected_sub_location}, poll={selected_pollutant}")
 
     filtered_results = get_filtered_results(db,
                                             main_location=selected_main_location,
@@ -88,15 +90,6 @@ def explore():
         except Exception as e:
             print(f"Exception {e}")  # Set empty list in the except block when there's an error
 
-    # return render_template("explore_data.html",
-    #                        location=location_data,
-    #                        # location=drop_down_filters,
-    #                        locations=main_locations,
-    #                        sub_locations=sub_locations,
-    #                        pollutants=pollutants,
-    #                        data=data_table,
-    #                        selected_locations=["Oxford", "SODC"]
-    #                        )
     return render_template("explore_data.html",
                            data=filtered_results,
                            location=location_data,
@@ -109,6 +102,6 @@ def explore():
                            )
 
 
-@app.route("/filter", methods=["GET", "POST"])
-def filter_data():
+@app.route("/graphs", methods=["GET"])
+def graphs():
     return None

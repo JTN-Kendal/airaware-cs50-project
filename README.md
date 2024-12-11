@@ -96,5 +96,6 @@ CREATE INDEX idx_measurements_pollutant ON measurements(pollutant_id);
 - LLMs are an incredible learning tool and development partner - I used for debugging, explaining topics or code I didn't understand
 - There are compromises from the very start - trade-offs on what is possible vs time available
 - Using other peoples data isn't always easy - need to shape into usable format before importing into db or using
-- 
+- Starting without a plan creates extra work
+- There is so much to read when learning a new library
 

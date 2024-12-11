@@ -27,54 +27,6 @@ def get_db():
     return g.db
 
 
-# def get_filtered_results(db, main_location=None, sub_location=None, pollutant=None):
-#     print("Received parameters:")
-#     print(f"main_location: {main_location}, type: {type(main_location)}")
-#     print(f"sub_location: {sub_location}, type: {type(sub_location)}")
-#     print(f"pollutant: {pollutant}, type: {type(pollutant)}")
-#
-#     query = '''
-#             SELECT
-#                 locations.name as loc_name,
-#                 sub_locations.name as sub_name,
-#                 pollutants.name as pollutant_name,
-#                 value,
-#                 status,
-#                 measured_at
-#             FROM measurements
-#             JOIN sub_locations ON sub_locations.sub_location_id = measurements.sub_location_id
-#             JOIN locations ON locations.location_id = sub_locations.location_id
-#             JOIN pollutants ON pollutants.pollutant_id = measurements.pollutant_id
-#             WHERE 1=1
-#
-#     '''
-#     params = {}
-#
-#     if main_location and main_location.strip():
-#         query += " AND locations.name = :main_location"
-#         params["main_location"] = main_location
-#
-#     if sub_location and sub_location.strip():
-#         query += " AND sub_locations.name = :sub_location"
-#         params["sub_location"] = sub_location
-#
-#     if pollutant and pollutant.strip():
-#         query += " AND pollutants.name = :pollutant"
-#         params["pollutants"] = pollutant
-#
-#     query += " ORDER BY measured_at DESC LIMIT 10"
-#
-#     print("\nFinal SQL:")
-#     print("Query:", query)
-#     print("Params:", params)
-#
-#     # If no params, execute without the params arguement
-#     if not params:
-#         return db.execute(query)
-#
-#     return db.execute(query, params)
-
-
 def get_filtered_results(db, main_location=None, sub_location=None, pollutant=None):
     query = '''
             SELECT

@@ -21,7 +21,15 @@
 
 ### Tuesday 10th Dec
 - Started the README.md file with core inputs
-- Connect the filter buttons to the table so the table updates
-- Increase number of results in the table - or make flexible
-- Add a date option to the drop-downs list for filtering by date - maybe just month
+- Connected the filter buttons to the table so the table updates - filters don't update depending on which one is selected - BUG
+  - Took and absolute age
+- Increased number of results in the table to 100 - need to look at flexing the number
+
+### Wednesday
+- Created index / home page
+- added links to table data and graph data to the layout file
+- Tidy up the database connection function and the get data app
+- Tidy up the explore function to remove unwanted code
+- Stop the table displaying straight away
 - Add some content to the home page
+- Add a date option to the drop-downs list for filtering by date - maybe just month
