@@ -29,7 +29,11 @@
 - Created index / home page
 - added links to table data and graph data to the layout file
 - Tidy up the database connection function and the get data app
+
+### Thursday 
+- Add a graph to the garphs page using plotly
+- Add a graph that is connected to the dataset
+- Do it properly with Dash
 - Tidy up the explore function to remove unwanted code
-- Stop the table displaying straight away
-- Add some content to the home page
 - Add a date option to the drop-downs list for filtering by date - maybe just month
+- Add download funtionality to the datatable page

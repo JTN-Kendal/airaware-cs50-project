@@ -1,11 +1,9 @@
-from cs50 import SQL
-import sqlite3
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
-from pprint import pprint
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
 from database_helpers import get_db, get_filtered_results
+from graphing import display_color
 
 # Configure application
 app = Flask(__name__)
@@ -40,55 +38,37 @@ def explore():
     except Exception as e:
         sub_locations = []
         print(e)
-
     try:
         pollutants = db.execute("SELECT * FROM pollutants")
     except Exception as e:
         pollutants = []
         print(e)
 
-    # TODO: Add the drop-down selection options
-    selected_main_location = request.args.get("main_location")
-    selected_sub_location = request.args.get("sub_location")
-    selected_pollutant = request.args.get("pollutant")
-    # selected_measure_date = request.args.getlist("date")
+    filtered_results = []
+    selected_main_location = None
+    selected_sub_location = None
+    selected_pollutant = None
+    location_data = None
 
-    filtered_results = get_filtered_results(db,
-                                            main_location=selected_main_location,
-                                            sub_location=selected_sub_location,
-                                            pollutant=selected_pollutant
-                                            )
+    if request.method == "GET":
+        # TODO: Add the drop-down selection options
+        selected_main_location = request.args.get("main_location")
+        selected_sub_location = request.args.get("sub_location")
+        selected_pollutant = request.args.get("pollutant")
+        # selected_measure_date = request.args.getlist("date")
 
-    # Set a variable to contain the location that is selected - Oxford or London
-    location_data = ""
-    try:
-        location_data = request.args.get("location-data-selection").title()
-    except Exception as e:
-        print(f"Exception raised for location selection - Oxford vs London: {e}")
+        filtered_results = get_filtered_results(db,
+                                                main_location=selected_main_location,
+                                                sub_location=selected_sub_location,
+                                                pollutant=selected_pollutant
+                                                )
 
-    # Pull the data for Oxford - in full programme would include London
-    data_table = []
-    if location_data == "Oxford":
+        # Set a variable to contain the location that is selected - Oxford or London
+        location_data = ""
         try:
-            data_table = db.execute("""
-                                        SELECT
-                                            locations.name as loc_name,
-                                            sub_locations.name as sub_name,
-                                            pollutants.name as pollutant_name,
-                                            value,
-                                            status,
-                                            measured_at
-                                        FROM measurements
-                                        JOIN sub_locations ON sub_locations.sub_location_id = measurements.sub_location_id
-                                        JOIN locations ON locations.location_id = sub_locations.location_id
-                                        JOIN pollutants ON pollutants.pollutant_id = measurements.pollutant_id
-                                        ORDER BY measured_at DESC
-                                        LIMIT 100
-                                    ;
-            """)
-
+            location_data = request.args.get("location-data-selection").title()
         except Exception as e:
-            print(f"Exception {e}")  # Set empty list in the except block when there's an error
+            print(f"Exception raised for location selection - Oxford vs London: {e}")
 
     return render_template("explore_data.html",
                            data=filtered_results,
@@ -104,4 +84,5 @@ def explore():
 
 @app.route("/graphs", methods=["GET"])
 def graphs():
-    return None
+    fig = display_color("Gold")
+    return render_template("graphs.html", fig=fig)
