@@ -5,6 +5,18 @@
 {% endblock %}
 
 {% block main %}
-    Graphs
-    {{ fig }}
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+<!-- templates/dashboard.html -->
+    <h1>Graphical Data for Oxfordshire Area</h1>
+    <h6>Select one or more locations from the legend to see or compare data for each location</h6>
+
+    <body>
+        <div id="chart"></div>
+        <script>
+            var graph = {{ fig | safe }};
+            Plotly.newPlot('chart', graph.data, graph.layout);
+        </script>
+    </body>
 {% endblock %}

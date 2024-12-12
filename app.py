@@ -2,19 +2,19 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
-from database_helpers import get_db, get_filtered_results
-from graphing import display_color
+from database_helpers import get_db, get_filtered_results, close_db, get_db
+from graphing import build_graph, create_interactive_graph
 
-# Configure application
+
+# Configure the flask application
 app = Flask(__name__)
+app.teardown_appcontext(close_db)  # Closes db connections - clean-up
 
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-
-# db = SQL("sqlite:///data/air.db")
 
 
 @app.route("/")
@@ -84,5 +84,6 @@ def explore():
 
 @app.route("/graphs", methods=["GET"])
 def graphs():
-    fig = display_color("Gold")
-    return render_template("graphs.html", fig=fig)
+    db = get_db()
+    fig_data = create_interactive_graph(db)
+    return render_template("graphs.html", fig=fig_data)

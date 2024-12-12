@@ -25,15 +25,27 @@
   - Took and absolute age
 - Increased number of results in the table to 100 - need to look at flexing the number
 
-### Wednesday
+### Wednesday 11th Dec
 - Created index / home page
 - added links to table data and graph data to the layout file
 - Tidy up the database connection function and the get data app
 
-### Thursday 
+### Thursday 12th Dec
 - Add a graph to the garphs page using plotly
 - Add a graph that is connected to the dataset
-- Do it properly with Dash
-- Tidy up the explore function to remove unwanted code
-- Add a date option to the drop-downs list for filtering by date - maybe just month
-- Add download funtionality to the datatable page
+- Updated the database connection to remove dependance on CS50 library which was causing issues as it's non-standard
+
+### Friday 13th Dec
+- Tidy up the explore function to remove unwanted code - add functions to helper file
+- Remove all unwanted imports
+- Add a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
+- Add download funtionality to the table page
+- Add data Overview page
+- Registration functionality
+
+### Saturday 14th Dec
+- Cehck requirements
+- Prep a ppt
+- record a screen recording
+- ReadMe
+- Check other requirements
