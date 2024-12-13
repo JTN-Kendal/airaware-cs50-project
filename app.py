@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required
 from database_helpers import get_db, get_filtered_results, close_db, get_db
 from graphing import build_graph, create_interactive_graph
+from table_helpers import basic_table
 
 
 # Configure the flask application
@@ -87,3 +88,19 @@ def graphs():
     db = get_db()
     fig_data = create_interactive_graph(db)
     return render_template("graphs.html", fig=fig_data)
+
+
+@app.route("/plotly_table", methods=["GET"])
+def table():
+    # DB connection
+    db = get_db()
+    # get data for the table
+    data = get_filtered_results(db, limit=1000)
+
+
+    # Create the table
+    table_data = None
+
+    # Convert table to HTML
+
+    return render_template("plotly_table.html", table=table)

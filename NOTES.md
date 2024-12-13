@@ -36,6 +36,7 @@
 - Updated the database connection to remove dependance on CS50 library which was causing issues as it's non-standard
 
 ### Friday 13th Dec
+- Plotly table - as POC - no data selection
 - Tidy up the explore function to remove unwanted code - add functions to helper file
 - Remove all unwanted imports
 - Add a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
