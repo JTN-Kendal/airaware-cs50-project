@@ -72,6 +72,28 @@
                         {{ pollutant.name }}</option>
                     {% endfor %}
                 </select>
+
+                <!-- Number of records input -->
+                <input type="text"
+                       class="form-control dropdown-menu-style mb-3"
+                       name="num_records"
+                       placeholder="Num Records (days)"
+                       aria-label="Enter number of days"
+                       min="1"
+                       max="1000"
+                       value="{{ selected_num_records if selected_num_records }}"
+                       style="width: auto; min-width: 200px"
+                       onchange="this.form.submit()">
+
+                <!--        The Download Button   -->
+                <div style="width: auto; min-width: 200px">
+                    <a href="{{ url_for('download') }}?{{ request.query_string.decode() }}"
+                       class="btn btn-warning mb-3"
+                       style="width: auto; min-width: 200px; max-width: 200px; display: block;">
+                        Download Data (CSV)
+                    </a>
+                </div>
+
             </form>
         </div>
 

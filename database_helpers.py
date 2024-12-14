@@ -1,3 +1,5 @@
+import csv
+from io import BytesIO, StringIO
 from flask import g
 import sqlite3
 import logging
@@ -23,7 +25,7 @@ def close_db(e=None):
         db.close()
 
 
-def get_filtered_results(db, main_location=None, sub_location=None, pollutant=None, limit=14):
+def get_filtered_results(db, main_location=None, sub_location=None, pollutant=None, limit: int = 14):
     """Get filtered measurement results from database."""
     query = '''
             SELECT
@@ -61,7 +63,39 @@ def get_filtered_results(db, main_location=None, sub_location=None, pollutant=No
         # Instead of just db.execute(query), we now need cursor.execute() and fetchall()
         cursor = db.execute(query, params)  # Note: No need to unpack params
         return cursor.fetchall()
+
     except sqlite3.Error as e:
         logger.error(f"Database error in get_filtered_results: {e}")
         raise
 
+
+def generate_csv(query_data):
+    # Set up the buffer and writer to write the data to
+    binary_buffer = BytesIO()
+
+    with StringIO(newline="") as string_buffer:
+        writer = csv.writer(string_buffer)
+
+        # Get the header rows from the input
+        if query_data:
+            headers = ['Location', 'Sub-location', 'Pollutant', 'Value', 'Status', 'Date']
+            writer.writerow(headers)  # Write the headers to the buffer - first row
+
+            # For each row in the dataset pull out the data for each column and write to the buffer
+            for row in query_data:
+                writer.writerow([
+                    row['loc_name'],
+                    row['sub_name'],
+                    row['pollutant_name'],
+                    row['value'],
+                    row['status'],
+                    row['measured_at']
+                ])
+
+    # Returns the buffer cursor to the beginning of the buffer so that when we write the contents to an output file/
+    # it's in the correct position ie at the begining of the content to be compied
+        binary_buffer.write(string_buffer.getvalue().encode("utf-8"))
+
+    binary_buffer.seek(0)
+
+    return binary_buffer

@@ -37,14 +37,19 @@
 
 ### Friday 13th Dec
 - Plotly table - as POC - no data selection
-- Tidy up the explore function to remove unwanted code - add functions to helper file
-- Remove all unwanted imports
-- Add a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
-- Add download funtionality to the table page
-- Add data Overview page
-- Registration functionality
+
 
 ### Saturday 14th Dec
+- Add download funtionality to the table page
+- Tidy up the explore function to remove unwanted code - add functions to helper file
+- Remove all unwanted imports
+
+- Add docstrings for all functions
+
+- Add a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
+- Add data Overview page
+- Connect to the london data
+
 - Cehck requirements
 - Prep a ppt
 - record a screen recording

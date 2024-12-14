@@ -6,21 +6,27 @@ Explore Data
 
 {% block main %}
     <h1>Welcome to <span style="color: #537fbe;">AiR</span><span style="color: #add8e6;">Aware</span> the air pollution data website</h1>
-    <h2>View daily air poluution data for Oxfordshire & London</h2>
+    <h2>View daily air pollution data for Oxfordshire & London</h2>
 
     <!--  Tables vs graph data buttons  -->
     <div class="mb-4">
         <form action="/explore" method="get" style="margin-top: 30px; margin-bottom: 30px">
-            <button class="btn btn-primary me-2" name="location-data-selection" value="table-data"
+            <button class="btn btn-primary me-2"
+                    name="location-data-selection"
+                    value="table-data"
                     aria-label="Select location"
                     type="submit"
                     style="width: auto; min-width: 200px">
-                Table Data</button>
-            <button class="btn btn-primary" name="location-data-selection" value="graph-data"
+                    Table Data
+            </button>
+            <button class="btn btn-primary"
+                    name="location-data-selection"
+                    value="graph-data"
                     aria-label="Select location"
                     type="submit"
                     style="width: auto; min-width: 200px">
-                Graph Data</button>
+                    Graph Data
+            </button>
         </form>
     </div>
 

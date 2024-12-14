@@ -7,10 +7,19 @@ Explore Data
 {% block main %}
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-
 <!-- templates/dashboard.html -->
 <h1>Table Data for Oxfordshire Area</h1>
 <h6>Simple Plotly table - POC</h6>
 
-    
+    <!-- Add a container with ID -->
+    <div id="table-container">
+        {{ table | safe }}
+    </div>
+
+    <!-- Add some debugging -->
+    <script>
+            console.log("Checking if table data exists:",
+            document.getElementById('table-container').innerHTML.length > 0);
+    </script>
+
 {% endblock %}
