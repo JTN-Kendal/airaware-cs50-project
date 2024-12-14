@@ -3,6 +3,36 @@ import plotly.graph_objects as go
 
 
 def basic_table(data, location_name: str = "Oxford"):
+    """Create a styled Plotly table visualization of air quality measurements.
+
+    Converts database query results into a Pandas DataFrame and creates an
+    interactive Plotly table with custom styling and formatting.
+
+    Args:
+        data (list[sqlite3.Row]): Database query results containing measurement data
+            with the following expected fields:
+            - loc_name: Location name
+            - sub_name: Sub-location name
+            - pollutant_name: Pollutant name
+            - value: Measurement value
+            - status: Measurement status
+            - measured_at: Measurement date
+        location_name (str, optional): Location name for the table title. Defaults to "Oxford".
+
+    Returns:
+        plotly.graph_objects.Figure: Styled Plotly table figure with the following features:
+            - Grey header with left-aligned 12pt font
+            - Lavender cells with left-aligned 10pt font
+            - 600px height
+            - Custom title position and margins
+            - Automatic column width adjustment
+
+    Notes:
+        - Automatically converts measured_at column to datetime format
+        - Column headers are derived from DataFrame columns
+        - All columns from input data are displayed in the table
+    """
+
     # Convert the raw db data into a df for easy use
     df = pd.DataFrame(dict(row) for row in data)
     df["measured_at"] = pd.to_datetime(df["measured_at"])

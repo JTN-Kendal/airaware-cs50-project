@@ -8,25 +8,81 @@ logger = logging.getLogger(__name__)
 
 
 def get_db():
-    """Get database connection for current request."""
+    """Get or create a database connection for the current request.
+
+        Creates a new SQLite connection if one doesn't exist for the current request
+        context, storing it in Flask's g object. Subsequent calls within the same
+        request context will return the existing connection.
+
+        Returns:
+            sqlite3.Connection: Database connection object with Row factory enabled
+
+        Notes:
+            - Uses Flask's g object for request-scoped connection management
+            - Connects to 'data/air.db' SQLite database
+            - Sets sqlite3.Row as row_factory for dictionary-like row access
+            - Should be used in conjunction with close_db() for proper cleanup
+        """
     if 'db' not in g:
-        # CHANGED: Use standard sqlite3 connection instead of CS50 SQL
         g.db = sqlite3.connect("data/air.db")
-        # ADDED: Enable dictionary-like row access (similar to CS50 SQL)
         g.db.row_factory = sqlite3.Row
     return g.db
 
 
-# ADDED: New function to properly close database connection
 def close_db(e=None):
-    """Close database connection at end of request."""
+    """Close the database connection at the end of a request.
+
+    Safely removes and closes the database connection stored in Flask's g object.
+    Designed to be used as a teardown function for Flask's application context.
+
+    Args:
+        e (Exception, optional): Error that occurred during the request, if any.
+            Defaults to None.
+
+    Notes:
+        - Should be registered with @app.teardown_appcontext decorator
+        - Safely handles cases where no database connection exists
+        - Companion function to get_db()
+        - Will close connection even if an error occurred during the request
+    """
     db = g.pop('db', None)
     if db is not None:
         db.close()
 
 
 def get_filtered_results(db, main_location=None, sub_location=None, pollutant=None, limit: int = 14):
-    """Get filtered measurement results from database."""
+    """Retrieve filtered air quality measurements from the database.
+
+    Executes a SQL query to fetch air quality measurements with optional filtering
+    by location and pollutant type. Results are ordered by date (descending) and
+    limited to a specified number of records.
+
+    Args:
+        db (sqlite3.Connection): Database connection object
+        main_location (str, optional): Main location name to filter by. Defaults to None.
+        sub_location (str, optional): Sub-location name to filter by. Defaults to None.
+        pollutant (str, optional): Pollutant name to filter by. Defaults to None.
+        limit (int, optional): Maximum number of records to return. Defaults to 14.
+
+    Returns:
+        list[sqlite3.Row]: List of measurement records with the following fields:
+            - loc_name (str): Main location name
+            - sub_name (str): Sub-location name
+            - pollutant_name (str): Pollutant name
+            - value (float): Measurement value
+            - status (str): Measurement status
+            - measured_at (str): Measurement date
+
+    Raises:
+        sqlite3.Error: If there's an error executing the database query
+
+    Notes:
+        - Empty or whitespace-only filter values are ignored
+        - Results are ordered by measurement date (newest first)
+        - All string matching is exact (case-sensitive)
+        - Uses parameterized queries for SQL injection prevention
+    """
+
     query = '''
             SELECT
                 locations.name as loc_name,
@@ -70,6 +126,33 @@ def get_filtered_results(db, main_location=None, sub_location=None, pollutant=No
 
 
 def generate_csv(query_data):
+    """Convert database query results to a CSV file in memory.
+
+    Takes query results containing air quality measurements and generates a CSV file
+    in a binary buffer. The CSV includes headers and formatted data rows.
+
+    Args:
+        query_data (list[sqlite3.Row]): Database query results containing measurement data
+            with the following expected fields:
+            - loc_name: Location name
+            - sub_name: Sub-location name
+            - pollutant_name: Pollutant name
+            - value: Measurement value
+            - status: Measurement status
+            - measured_at: Measurement date
+
+    Returns:
+        BytesIO: Binary buffer containing the CSV data, with cursor positioned at
+        the start of the buffer. The CSV includes the following columns:
+        Location, Sub-location, Pollutant, Value, Status, Date
+
+    Notes:
+        - Returns an empty buffer if query_data is empty
+        - Uses UTF-8 encoding for the CSV data
+        - Handles file-like operations in memory without disk I/O
+        - CSV is created with standard formatting (comma-separated, quoted as needed)
+    """
+
     # Set up the buffer and writer to write the data to
     binary_buffer = BytesIO()
 

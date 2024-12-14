@@ -1,3 +1,4 @@
+## Key Project Decisions
 ### 2024-12-05: Data Storage Choice
 **Context:** Needed to choose between SQLite and PostgreSQL
 **Decision:** Selected SQLite

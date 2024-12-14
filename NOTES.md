@@ -41,17 +41,20 @@
 
 ### Saturday 14th Dec
 - Add download funtionality to the table page
+- Add docstrings for all functions
+- - Add a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
+
+
 - Tidy up the explore function to remove unwanted code - add functions to helper file
 - Remove all unwanted imports
 
-- Add docstrings for all functions
 
-- Add a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
 - Add data Overview page
 - Connect to the london data
 
+### Sunday 15th Dec
 - Cehck requirements
+- Upload a version
 - Prep a ppt
 - record a screen recording
 - ReadMe
-- Check other requirements

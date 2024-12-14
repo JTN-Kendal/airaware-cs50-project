@@ -3,7 +3,7 @@
 #### General learnings
 - Project like this is complex even for something quite simple.
 - Everything takes longer than you expect - EVERYTHING
-- LLMs are an incredible resource for prototyping and learning
+- LLMs are an incredible resource for prototyping and learning but error prone with smaller libraries and specific details
 
 #### Project management learnings
 - There are compromises from the very start - trade-offs on what is possible vs time available
