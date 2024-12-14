@@ -8,27 +8,19 @@ Explore Data
     <h1>Welcome to <span style="color: #537fbe;">AiR</span><span style="color: #add8e6;">Aware</span> the air pollution data website</h1>
     <h2>View daily air pollution data for Oxfordshire & London</h2>
 
-    <!--  Tables vs graph data buttons  -->
-    <div class="mb-4">
-        <form action="/explore" method="get" style="margin-top: 30px; margin-bottom: 30px">
-            <button class="btn btn-primary me-2"
-                    name="location-data-selection"
-                    value="table-data"
-                    aria-label="Select location"
-                    type="submit"
-                    style="width: auto; min-width: 200px">
-                    Table Data
-            </button>
-            <button class="btn btn-primary"
-                    name="location-data-selection"
-                    value="graph-data"
-                    aria-label="Select location"
-                    type="submit"
-                    style="width: auto; min-width: 200px">
-                    Graph Data
-            </button>
-        </form>
-    </div>
+    <!--  Tables vs graph page buttons  -->
+        <div style="margin-top: 30px; margin-bottom: 30px">
+            <a href="{{ url_for('explore') }}"
+               class="btn btn-success me-2"
+               style="width: auto; min-width: 200px">
+                Table Data
+            </a>
+            <a href="{{ url_for ('graphs') }}"
+               class="btn btn-success"
+               style="width: auto; min-width: 200px">
+                Graph Data
+            </a>
+        </div>
 
     <!--    Image-->
     <div>

@@ -88,7 +88,6 @@ def explore():
     selected_sub_location = None
     selected_pollutant = None
     location_data = "Oxford"
-    selected_num_records = None
 
     if request.method == "GET":
         # drop-down selection options
@@ -118,7 +117,6 @@ def explore():
                                                 )
 
         # Set a variable to contain the location that is selected - Oxford or London
-        location_data = ""
         try:
             location_data = request.args.get("location-data-selection").title()
         except Exception as e:
@@ -134,7 +132,6 @@ def explore():
                            selected_main_location=selected_main_location,
                            selected_sub_location=selected_sub_location,
                            selected_pollutant=selected_pollutant,
-                           # selected_num_records=selected_num_records,
                            )
 
 

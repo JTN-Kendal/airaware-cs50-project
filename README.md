@@ -20,16 +20,17 @@ Extention plan to connect to data for London via API from https://www.londonair.
   - Use drop-downs on the left to filter the data - note change in table data via database queries
     - change pollutant type, location, number of records
   - Option to download data (num records possibly defaulting to 14 - needs fix)
-  - Navigate to graph data:
+  - Navigate to graph data (from home page or top menu):
     - use legend to select one or more location to view
     - More than one provides overlay view
     - Graph built using Plotly library & with customisation by me
   - Navigate to  'table data (plotly)'
     - table view using plotly
-    - I had expected this to be better than HTML version but limited
-    - I could add drop-downs, but no time
+    - I had expected this to be better than HTML version but limited, and I wasted **a lot** of time going through documentation
+    - I could add drop-downs, but run out of time
   - NOTE:
     - links to register and log-in pages do not work. PLEASE DON'T press
+    - If selected use back button to return to previous page, or access url in browser and delete '/register' from the end of the url
 
 #### Core features
 ##### Data Exploration
