@@ -50,7 +50,7 @@ def close_db(e=None):
         db.close()
 
 
-def get_filtered_results(db, main_location=None, sub_location=None, pollutant=None, limit: int = 14):
+def get_filtered_results(db, main_location=None, sub_location=None, pollutant=None, limit: int = 14, sort: str = "DESC"):
     """Retrieve filtered air quality measurements from the database.
 
     Executes a SQL query to fetch air quality measurements with optional filtering
@@ -63,6 +63,7 @@ def get_filtered_results(db, main_location=None, sub_location=None, pollutant=No
         sub_location (str, optional): Sub-location name to filter by. Defaults to None.
         pollutant (str, optional): Pollutant name to filter by. Defaults to None.
         limit (int, optional): Maximum number of records to return. Defaults to 14.
+        sort (str, optional): Sort records in ascending or descending order. Defaults to Descending
 
     Returns:
         list[sqlite3.Row]: List of measurement records with the following fields:
@@ -98,7 +99,7 @@ def get_filtered_results(db, main_location=None, sub_location=None, pollutant=No
             WHERE 1=1
     '''
 
-    # Build parameters list - No changes needed to query building
+    # Build parameters list & append variables as needed/present
     params = []
     if main_location and main_location.strip():
         query += " AND locations.name = ?"
@@ -112,12 +113,13 @@ def get_filtered_results(db, main_location=None, sub_location=None, pollutant=No
         query += " AND pollutants.name = ?"
         params.append(pollutant)
 
-    query += f" ORDER BY measured_at DESC LIMIT {limit}"
+    # add the final line which is to filter in decending order and define num records
+    # TODO: create option for descending vs ascending - have drop-down
+    query += f" ORDER BY measured_at {sort} LIMIT {limit}"
 
     try:
-        # CHANGED: Use standard sqlite3 execute with fetchall()
-        # Instead of just db.execute(query), we now need cursor.execute() and fetchall()
-        cursor = db.execute(query, params)  # Note: No need to unpack params
+        # Execute the query with the query and params and return for handing to the web page
+        cursor = db.execute(query, params)
         return cursor.fetchall()
 
     except sqlite3.Error as e:

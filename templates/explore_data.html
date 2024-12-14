@@ -25,12 +25,40 @@
             </form>
         </div>
 
+
     <!--  Main location drop-down menu  -->
     <div class="d-flex gap-4">
         <!-- Left sidebar with dropdowns -->
         <div class="flex-shrink-0" style="width: 220px">
             <!--    Main locations dropdown menu    -->
             <form action="{{ url_for('explore') }}" method="get" class="mb-3">
+
+                <!-- Sort ascending or descending -->
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="sort_order"
+                           value="asc"
+                           id="sortAsc"
+                           {% if sort_order == 'asc' %}checked{% endif %}
+                    onchange="this.form.submit()">
+                    <label class="form-check-label" for="sortAsc">
+                        Sort ascending (date)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="sort_order"
+                           value="desc"
+                           id="sortDesc"
+                           {% if sort_order == 'desc' or not sort_order %}checked{% endif %}
+                    onchange="this.form.submit()">
+                    <label class="form-check-label" for="sortDesc">
+                        Sort Descending (date)
+                    </label>
+                </div>
+
                 <!-- Main locations dropdown -->
                 <select class="form-select dropdown-menu-style"
                         name="main_location"
@@ -84,6 +112,7 @@
                        value="{{ selected_num_records if selected_num_records }}"
                        style="width: auto; min-width: 200px"
                        onchange="this.form.submit()">
+
 
                 <!--        The Download Button   -->
                 <div style="width: auto; min-width: 200px">
