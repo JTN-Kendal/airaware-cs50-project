@@ -40,6 +40,7 @@ def insert_initial_data(conn):
     for pollutant in pollutants:
         conn.execute('INSERT OR IGNORE INTO pollutants (name) VALUES (?)', pollutant)
 
+
 def generate_measurement(base_value, date_factor):
     """Generate a realistic measurement with some variation"""
     # Add seasonal variation (higher in winter)
@@ -47,6 +48,7 @@ def generate_measurement(base_value, date_factor):
     # Add random noise
     noise = np.random.normal(0, base_value * 0.2)
     return max(1, base_value + seasonal + noise)
+
 
 def generate_measurements(conn, start_date, end_date):
     """Generate measurements for all locations and pollutants"""
@@ -106,6 +108,7 @@ def generate_measurements(conn, start_date, end_date):
             (sub_location_id, pollutant_id, value, status, measured_at)
             VALUES (?, ?, ?, ?, ?)
         ''', batch)
+
 
 def main():
     # Connect to existing database

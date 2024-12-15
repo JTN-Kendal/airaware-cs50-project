@@ -41,6 +41,13 @@ Dummy data was used as I didn't want to spend time early on creating a cleaning 
 I did end up making a script to prepare the data I downloaded but have not yet implemented into a pipeline for regular updates.
 With the key features in place I can flow real data into the database, and it will cascade into the program.
 
+#### Database set-up
+- Schema defined in a python file (data/db_schema.sql)
+- Python script used to set-up the sqlite3 database to avoid keying into sqlite3 directly via the terminal
+  - (db_setup.py)
+- Dummy data created and inserted into the sqlite3 database with python script - functions to be repurposed in the future for datapipeline
+  - quite a bit of input from LLM to create the dummy data as I didn't want to spend time on generating realistic data
+
 
 #### Database Schema
 ```

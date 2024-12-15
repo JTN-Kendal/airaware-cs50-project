@@ -37,7 +37,7 @@ Next step plan is to connect data for London via API from https://www.londonair.
     - table view using plotly
     - I had expected this to be better than HTML version but limited, and I wasted **a lot** of time going through documentation
     - I could add drop-downs, but run out of time
-  - NOTE:
+  - NOTE - if visible:
     - links to register and log-in pages do not work. PLEASE DON'T press
     - If selected use back button to return to previous page, or access url in browser and delete '/register' from the end of the url
 
