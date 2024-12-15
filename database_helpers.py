@@ -114,7 +114,6 @@ def get_filtered_results(db, main_location=None, sub_location=None, pollutant=No
         params.append(pollutant)
 
     # add the final line which is to filter in decending order and define num records
-    # TODO: create option for descending vs ascending - have drop-down
     query += f" ORDER BY measured_at {sort} LIMIT {limit}"
 
     try:

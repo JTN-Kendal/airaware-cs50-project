@@ -11,7 +11,7 @@
 - Developed using PyCharm CE (free version of professional development tool focused on python, with support for sql, html, css)
   - More robust set of tools out of the box that VSCode
 - Warp Terminal (Command Line & SQL tasks)
-- Not tested on VSCode 
+- Not tested on VSCode - should be fine
 
 #### Libraries (Primary)
 - CSV
@@ -89,7 +89,7 @@ CREATE INDEX idx_measurements_pollutant ON measurements(pollutant_id);
 - helpers.py - Not used. Functions copied over from another project for use in log-in and registration which I didn't get to.
 
 #### Functions Overview
-
+- All functions have docstrings (using google style) detailing what it does, params and outputs.
 
 #### Project Structure
 ```

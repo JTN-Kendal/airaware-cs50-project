@@ -40,13 +40,13 @@
 
 
 ### Saturday 14th Dec
-- Add download funtionality to the table page
-- Add docstrings for all functions
-- - Add a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
-
+- Added download funtionality to the table page
+- Added docstrings for all functions
+- Added a date option to the drop-downs list for filtering by date - maybe just month - table and graph pages
+- Added radio button to the table data page to toggle date sorting from ascending vs descending
+- Prepped 
 
 - Tidy up the explore function to remove unwanted code - add functions to helper file
-- Remove all unwanted imports
 
 
 - Add data Overview page

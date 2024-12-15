@@ -32,35 +32,38 @@ def home():
 
 @app.route("/explore", methods=["GET"])
 def explore():
-    """Handle requests to the explore data page, managing filters and data display.
+    """Handle requests to the explore data page, managing filters, sort order and data display.
 
     This Flask route handler manages the data exploration page, handling both initial page loads
     and filtered data requests. It retrieves data from the database based on user-selected
-    filters and renders the exploration interface.
+    filters and sort preferences, then renders the exploration interface.
 
     Request Parameters:
-        main_location (str, optional): Name of the main location to filter by
-        sub_location (str, optional): Name of the sub-location to filter by
-        pollutant (str, optional): Name of the pollutant to filter by
-        num_records (str, optional): Number of records to display (default: "14")
-        location-data-selection (str, optional): Dataset selection ("oxford" or "london")
+    main_location (str, optional): Name of the main location to filter by
+    sub_location (str, optional): Name of the sub-location to filter by
+    pollutant (str, optional): Name of the pollutant to filter by
+    num_records (str, optional): Number of records to display (default: "14")
+    location-data-selection (str, optional): Dataset selection ("oxford" or "london")
+    sort_order (str, optional): Sort direction for results ("asc" or "desc", default: "desc")
 
     Returns:
-        flask.Response: Rendered explore_data.html template with the following context:
-            data (list): Filtered measurement results
-            location (str): Currently selected dataset location ("Oxford" or "London")
-            locations (list): Available main locations for filtering
+    flask.Response: Rendered explore_data.html template with the following context:
+        data (list): Filtered measurement results
+        sort_order (str): Current sort direction ("ASC" or "DESC")
+        location (str): Currently selected dataset location ("Oxford" or "London")
+        locations (list): Available main locations for filtering
             sub_locations (list): Available sub-locations for filtering
             pollutants (list): Available pollutants for filtering
             selected_main_location (str|None): Currently selected main location
-            selected_sub_location (str|None): Currently selected sub-location
-            selected_pollutant (str|None): Currently selected pollutant
+        selected_sub_location (str|None): Currently selected sub-location
+        selected_pollutant (str|None): Currently selected pollutant
 
     Notes:
-        - Only handles GET requests
-        - Defaults to Oxford dataset if location selection fails
-        - Validates num_records to be between 1 and 10000, defaulting to 14 if invalid
-        - Database exceptions are caught and result in empty lists for the relevant dropdowns
+    - Only handles GET requests
+    - Defaults to Oxford dataset if location selection fails
+    - Validates num_records to be between 1 and 10000, defaulting to 14 if invalid
+    - Database exceptions are caught and result in empty lists for the relevant dropdowns
+    - Results are sorted by measurement date in the specified order
     """
 
     # Establish database connection
