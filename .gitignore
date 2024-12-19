@@ -22,3 +22,43 @@ data/data_raw/*.csv
 # OS files
 .DS_Store
 Thumbs.db
+
+# Flask
+flask_session/
+instance/
+.webassets-cache
+
+# Additional Python
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+# Presentation files
+*.key
+# SQL files (if for testing only)
+data/querey.sql
+# Jupyter
+data_raw/*.ipynb
+data_raw/.ipynb_checkpoints/
+# Design files
+static/designs/
+# project files
+DESIGN.md
+NOTES.md
+LEARNING_OUTCOMES.md
+DESIGN.md
+
